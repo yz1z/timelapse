@@ -11,18 +11,21 @@ import os
 # Ensure only vids folder is accessible to prevent all files from being accessed remotely
 app = Flask(__name__, static_folder='vids')
 
+## Return homepage.html template
 @app.route('/')
-def awjfuqhfaifjifw():
-    return render_template('homepage.html') #you can customze index.html here
+def homepagetemp():
+    return render_template('homepage.html') 
 
 #@app.route('/livestream')
 #def index():
-   # return render_template('livestream.html') #you can customze index.html here
+   # return render_template('livestream.html') 
 
+## Return timelapse video template
 @app.route('/timelapse')
-def aehufijf3ua():
-    return render_template('timelapse.html') #you can customze index.html here
+def timelapsetemp():
+    return render_template('timelapse.html') 
 
+### This is only for live camera
 def gen(camera):
     #get camera frame
     while True:
@@ -34,10 +37,11 @@ def gen(camera):
 
 if __name__ == '__main__':
     timelapseobj = TimeLapse()
+    ## Start image capturer and timelapse composer
     threading.Thread(target=timelapseobj.image_capturer).start()
     threading.Thread(target=timelapseobj.compose_timelapse).start()
 
-
+   ## Run the flask app
     app.run(host='0.0.0.0', debug=False)
     
 
